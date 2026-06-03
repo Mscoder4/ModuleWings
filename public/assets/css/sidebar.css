@@ -1,0 +1,172 @@
+/* Sidebar Styles */
+@import "fonts.css";
+
+.sidebar {
+    width: 225px;
+    height: calc(100vh - 80px);
+    position: fixed;
+    top: 40px;
+    left: 40px;
+    bottom: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    border-radius: 30px;
+    border: 1px solid #fff;
+}
+
+.sidebar-brand {
+    height: 121px;
+    background: #1231FF;
+    border-radius: 30px 30px 0 0;
+    display: flex;
+    align-items: center;
+    padding-left: 32px;
+    /* justify-content: center; */
+}
+
+
+.sidebar-brand img {
+    /* width: 131.56494140625px; */
+    height: 26.87px;
+}
+
+.sidebar-nav {
+    margin-top: 29px;
+    height: 649.18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: calc(100% - 10px);
+    margin-left: 5px;
+
+}
+
+.sidebar-nav a {
+    font-family: 'Satoshi-regular', sans-serif;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    height: 38px;
+    padding-left: 25px;
+    color: #000;
+    text-decoration: none;
+    transition: all 0.2s;
+    gap: 12px;
+    border-radius: 10px;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    background-color: #1231FF;
+    color: #ffffff;
+}
+
+.sidebar-footer {
+    height: 65.82px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px;
+}
+
+.more {
+    width: 115px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 47.5px;
+}
+
+#profile-span {
+    font-size: 13px;
+}
+
+#more-icon {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-info {
+    width: 157px;
+    height: 38px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: #1231FF;
+    font-family: 'Satoshi-Medium', sans-serif;
+    font-size: 13px;
+    border: 1px solid #fff;
+}
+
+.user-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid #fff;
+}
+
+.logout-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(from #0000 r g b / 0.2);
+    border: 1px solid #fff;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sidebar-nav a:hover .icon,
+.sidebar-nav a.active .icon {
+    color: #ffffff;
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-nav a .icon img {
+    color: #000;
+
+}
+
+.sidebar-nav a:hover .icon img,
+.sidebar-nav a.active .icon img {
+    filter: brightness(0) invert(1);
+}
+
+/* Main content adjustment for sidebar */
+body {
+    margin: 0;
+    /* Match sidebar width */
+    font-family: 'Manrope-Regular', sans-serif;
+    background-color: #e9edf6;
+}
+
+#invoice_date {
+    text-transform: uppercase;
+}
+
+#due_date {
+    text-transform: uppercase;
+}

@@ -1,0 +1,318 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    background-color: #E9EDF6;
+}
+
+#main-content {
+    margin-left: 295px;
+    margin-right: 40px;
+    padding-top: 130px;
+    padding-bottom: 40px;
+    font-family: 'Satoshi-Medium', sans-serif;
+}
+
+.split-view-container {
+    display: flex;
+    gap: 24px;
+    height: calc(100vh - 80px);
+}
+
+/* Sidebar / Split List */
+.split-list {
+    width: 270px;
+    height: calc(100vh - 60px);
+    margin-top: -90px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    border: 1px solid #ffffff;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(10px);
+    overflow: hidden; /* Prevent list from scrolling 'under' the header */
+}
+
+.list-header {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    background: transparent; /* Changed to transparent */
+}
+
+.split-list-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 7px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    overflow-x: hidden;
+    max-height: 1200px; /* Increased to ensure 12 full cards are visible */
+}
+
+.split-list-content::-webkit-scrollbar {
+    width: 9px;
+}
+
+.split-list-content::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 10px 0;
+}
+
+.split-list-content::-webkit-scrollbar-thumb {
+    background-color: rgba(104, 104, 104, 0.5);
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    border-radius: 9px;
+}
+
+.header-title {
+    font-family: 'Satoshi-Medium', sans-serif;
+    font-size: 15px;
+    color: #000;
+}
+
+.header-add-btn {
+    width: 76px;
+    height: 38px;
+    background: #1231FF;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Satoshi-Medium', sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.header-add-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.split-list::-webkit-scrollbar {
+    width: 9px;
+}
+
+#filter {
+    width: 49px;
+}
+
+#checkbox {
+    width: 34px;
+
+}
+
+#name {
+    width: 234px;
+}
+
+#company {
+    width: 250px;
+}
+
+#email {
+    width: 286px;
+}
+
+#phone {
+    width: 283px;
+}
+
+#receivables {
+    width: 150px;
+}
+
+.split-list::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 20px 0;
+}
+
+.split-list::-webkit-scrollbar-thumb {
+    background-color: rgba(104, 104, 104, 0.5);
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    border-radius: 9px;
+}
+
+.customer-card {
+    width: 250px;
+    height: 76px;
+    padding-top: 17px;
+    padding-bottom: 65px;
+    padding-left: 25px;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid #ffffff;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+
+.customer-card .customer-name {
+    font-family: 'Satoshi-Medium', sans-serif;
+    font-size: 18px;
+    color: #111;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.customer-card .card-details {
+    font-size: 12px;
+    color: #686868;
+}
+
+/* Right Pane */
+.split-right-pane {
+    margin-top: 48px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Prevent pane itself from scrolling */
+}
+
+.customers-table-wrap {
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 8px; /* Visual gap for scrollbar */
+    max-height: 710px; /* Increased to ensure 12 full rows are visible */
+}
+
+.customers-table-wrap::-webkit-scrollbar {
+    width: 9px;
+}
+
+.customers-table-wrap::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.customers-table-wrap::-webkit-scrollbar-thumb {
+    background-color: rgba(104, 104, 104, 0.5);
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    border-radius: 9px;
+}
+
+/* Table */
+
+.customers-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 2px;
+    font-size: 13px;
+}
+
+.customers-table thead tr {
+    height: 48px;
+    background: #1231FF;
+    color: #ffffff;
+    font-family: 'Satoshi-Medium', sans-serif;
+}
+
+.customers-table thead th {
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    background: #1231FF;
+    text-align: left;
+    padding: 0 15px;
+    font-family: 'Manrope-Bold', sans-serif;
+}
+
+.customers-table th:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    text-align: center;
+    padding-top: 6px;
+    width: 50px;
+}
+
+.customers-table th:last-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.customer-row {
+
+    background: rgba(255, 255, 255, 0.5);
+    height: 48px;
+    transition: all 0.2s ease;
+}
+
+
+.customer-row td {
+    padding: 15px 15px 15px 0;
+    height: 48px;
+    color: #000;
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    font-family: 'Satoshi-Medium', sans-serif;
+    font-size: 15px;
+}
+
+.customer-row td:first-child {
+    text-align: center;
+    border-left: 1px solid #ffffff;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.customer-row td:last-child {
+    border-right: 1px solid #ffffff;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.row-checkbox {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: 4px;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+}
+
+.customer-row .row-checkbox:checked {
+    background-color: #1231FF;
+    border-color: #1231FF;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M4 8.5l2.5 2.5 5-5'/%3E%3C/svg%3E");
+    background-position: center;
+    background-size: 12px;
+    background-repeat: no-repeat;
+}
+
+#main-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+}
+
+#main-checkbox:checked {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%231231FF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M4 8.5l2.5 2.5 5-5'/%3E%3C/svg%3E");
+    background-position: center;
+    background-size: 12px;
+    background-repeat: no-repeat;
+}

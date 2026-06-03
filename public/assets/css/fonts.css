@@ -1,0 +1,80 @@
+/* Global Font Configuration - Individual Weights */
+
+/* Satoshi */
+@font-face {
+    font-family: 'Satoshi-Regular';
+    src: url('../fonts/satoshi/Satoshi-Regular.otf') format('opentype');
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Satoshi-Medium';
+    src: url('../fonts/satoshi/Satoshi-Medium.otf') format('opentype');
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Satoshi-Bold';
+    src: url('../fonts/satoshi/Satoshi-Bold.otf') format('opentype');
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Satoshi-Black';
+    src: url('../fonts/satoshi/Satoshi-Black.otf') format('opentype');
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Manrope */
+@font-face {
+    font-family: 'Manrope-Regular';
+    src: url('../fonts/Manrope/static/Manrope-Regular.ttf') format('truetype');
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Manrope-Medium';
+    src: url('../fonts/Manrope/static/Manrope-Medium.ttf') format('truetype');
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Manrope-SemiBold';
+    src: url('../fonts/Manrope/static/Manrope-SemiBold.ttf') format('truetype');
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Manrope-Bold';
+    src: url('../fonts/Manrope/static/Manrope-Bold.ttf') format('truetype');
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Manrope-ExtraBold';
+    src: url('../fonts/Manrope/static/Manrope-ExtraBold.ttf') format('truetype');
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Manrope-Light';
+    src: url('../fonts/Manrope/static/Manrope-Light.ttf') format('truetype');
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Manrope-ExtraLight';
+    src: url('../fonts/Manrope/static/Manrope-ExtraLight.ttf') format('truetype');
+    font-style: normal;
+    font-display: swap;
+}
