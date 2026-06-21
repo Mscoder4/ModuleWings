@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice PDF - ModuleWings</title>
+    <style>
+        @font-face {
+            font-family: 'Satoshi-regular';
+            src: url('{{FONT_REG}}') format('opentype');
+        }
+
+        @font-face {
+            font-family: 'Satoshi-medium';
+            src: url('{{FONT_MED}}') format('opentype');
+        }
+
+        @font-face {
+            font-family: 'Satoshi-bold';
+            src: url('{{FONT_BOLD}}') format('opentype');
+        }
+
+        @font-face {
+            font-family: 'Satoshi-black';
+            src: url('{{FONT_BLACK}}') format('opentype');
+        }
+
+        @font-face {
+            font-family: 'Manrope-regular';
+            src: url('{{MANROPE_REG}}') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Manrope-semibold';
+            src: url('{{MANROPE_MED}}') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Manrope-bold';
+            src: url('{{MANROPE_BOLD}}') format('truetype');
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 210mm;
+            height: 297mm;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Satoshi-regular', 'DejaVu Sans', sans-serif;
+            font-size: 11px;
+            line-height: 1.5;
+            color: #1b2130;
+            background-color: #E9EDF6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ─────────────────────────────────────────
+           MAIN CONTENT AREA  (flex:1 → grows to fill)
+           82px left/right padding to match Figma
+        ───────────────────────────────────────── */
+        .invoice-main {
+            flex: 1;
+            padding: 82px 82px 24px 82px;
+            background: #E9EDF6;
+            overflow: hidden;
+        }
+
+        /* ── Header: logo left, INVOICE right ── */
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 60px;
+        }
+
+        .logo-cell {
+            vertical-align: middle;
+            text-align: left;
+        }
+
+        .logo-img {
+            height: 44.1010627746582px;
+            width: auto;
+            display: block;
+        }
+
+        .invoice-title-cell {
+            text-align: right;
+            vertical-align: middle;
+            font-size: 40.03px;
+            font-weight: 600;
+            letter-spacing: 0em;
+            color: #1b2130;
+            white-space: nowrap;
+            font-family: 'Manrope-semibold', sans-serif;
+        }
+
+        /* ── Meta section ── */
+        .meta-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 36px;
+        }
+
+        .meta-left {
+            width: 55%;
+            vertical-align: top;
+        }
+
+        .client-name {
+            font-family: 'Satoshi-medium', sans-serif;
+            font-size: 20.02px;
+            color: #1b2130;
+            margin-bottom: 14px;
+        }
+
+        .detail-table {
+            font-size: 13px;
+            margin-top: 30px;
+            border-collapse: collapse;
+        }
+
+        .detail-label {
+            font-weight: 400;
+            color: #505568;
+            white-space: nowrap;
+            width: 70px;
+        }
+
+        .detail-value {
+            font-family: 'satoshi-bold', sans-serif;
+            color: #1b2130;
+        }
+
+        .meta-right {
+            width: 45%;
+            vertical-align: top;
+            text-align: right;
+            font-size: 13.34px;
+            line-height: 1.4;
+            font-weight: 300;
+            color: #1b2130;
+        }
+
+        /* ── Subject ── */
+        .subject-block {
+            margin-top: 70px;
+            margin-bottom: 28px;
+            margin-left: 30px;
+        }
+
+        .subject-label {
+            font-size: 10.68px;
+            font-family: 'Satoshi-medium', sans-serif;
+            color: #1b2130;
+            margin-bottom: 2px;
+        }
+
+        .subject-text {
+            font-size: 10.68px;
+            font-family: 'Satoshi-medium', sans-serif;
+            color: #1b2130;
+        }
+
+        /* ── Items table ── */
+        .items-table {
+            font-size: 10.68px;
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 0;
+        }
+
+        .items-table th {
+            font-weight: 400;
+            font-family: 'Satoshi-regular', sans-serif;
+            color: #1b2130;
+            text-align: left;
+            padding: 10px 0;
+            border-bottom: 1px solid #c8ccd9;
+        }
+
+        .items-table th.center {
+            text-align: right;
+            padding-right: 15px;
+        }
+
+        .items-table td {
+            font-family: 'Satoshi-medium', sans-serif;
+            color: #1b2130;
+            padding: 13px 0;
+            vertical-align: top;
+            border-bottom: 1px solid #eaedf4;
+        }
+
+        .items-table tbody tr:first-child td {
+            padding-top: 30px;
+        }
+
+        .items-table tbody tr:last-child td {
+            padding-bottom: 25px;
+        }
+
+        .items-table td.center {
+            text-align: right;
+            padding-right: 15px;
+        }
+
+        .col-hash {
+            text-align: center;
+            width: 70px;
+        }
+
+
+        .col-qty {
+            width: 70px;
+        }
+
+        .col-rate {
+            width: 90px;
+        }
+
+        .col-amt {
+            width: 90px;
+        }
+
+        /* ── Totals ── */
+        .totals-table {
+            font-family: 'Satoshi-medium', sans-serif;
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-left: auto;
+            background-color: rgba(18, 49, 255, 0.05);
+            /* #1231ff at 5% opacity */
+            border-radius: 10px;
+        }
+
+        .totals-table td {
+            padding: 7px 12px;
+        }
+
+        /* divider line that appears above the first totals row */
+        .totals-table tr:first-child td {
+            border-top: none;
+            padding-top: 10px;
+        }
+
+        .totals-table tr:last-child td {
+            padding-bottom: 10px;
+        }
+
+        .totals-table .lbl {
+            text-align: right;
+            padding-right: 15px;
+            color: #1b2130;
+            font-family: 'Satoshi-medium', sans-serif;
+        }
+
+        .totals-table .val {
+            text-align: right;
+            padding-right: 15px;
+            width: 90px;
+            color: #1b2130;
+        }
+
+        .total-row td {
+            font-size: 10.68px;
+            color: #1b2130;
+            padding-top: 7px;
+        }
+
+        .total-row .lbl,
+        .total-row .val {
+            font-family: 'Satoshi-bold', sans-serif;
+        }
+
+        /* ─────────────────────────────────────────
+           BLUE FOOTER  — 300px tall, left-aligned content
+           same 82px horizontal padding as body
+        ───────────────────────────────────────── */
+        .footer {
+            background-color: #1231FF;
+            color: #ffffff;
+            padding: 28px 82px 24px 82px;
+            flex-shrink: 0;
+            height: 350px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* Labels row */
+        .foot-labels-table {
+            width: 100%;
+            margin-bottom: 0;
+            border-collapse: collapse;
+        }
+
+        .foot-labels-table td {
+            margin-bottom: 0;
+            /* background: #534343; */
+            font-size: 10.68px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.85);
+            vertical-align: bottom;
+            /* margin-top: 100px; */
+        }
+
+        .foot-labels-table td:first-child {
+            padding-left: 30px;
+        }
+
+        .foot-labels-table td:last-child {
+            width: 90px;
+            text-align: right;
+            padding-right: 15px;
+        }
+
+        .foot-labels-table td.center {
+            text-align: center;
+        }
+
+        .foot-labels-table td.right {
+            text-align: right;
+        }
+
+        /* Divider */
+        .foot-divider,
+        .foot-divider2 {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.25);
+            width: 100%;
+            margin: 0;
+        }
+
+        .bank-value {
+            font-family: 'Satoshi-bold', sans-serif;
+            font-size: 10.68px;
+        }
+
+        /* Bank / Due / Total row */
+        .foot-values-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .foot-values-table td:first-child {
+            padding-left: 30px;
+        }
+
+        .foot-values-table td {
+            vertical-align: middle;
+            color: #ffffff;
+        }
+
+        .foot-values-table td:first-child {
+            padding-left: 30px;
+        }
+
+        .foot-values-table td:last-child {
+            width: 90px;
+            text-align: right;
+            padding-right: 15px;
+        }
+
+        .foot-values-table td.center {
+            text-align: center;
+        }
+
+        .foot-values-table td.right {
+            text-align: right;
+        }
+
+        .bank-line {
+            font-size: 10px;
+            margin-bottom: 4px;
+            color: #ffffff;
+        }
+
+
+        .due-date-text {
+            font-family: 'Satoshi-medium', sans-serif;
+            font-size: 22.69px;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .total-due-text {
+            font-family: 'Satoshi-black', sans-serif;
+            font-size: 22.69px;
+            color: #ffffff;
+        }
+
+        /* Divider 2 */
+        .foot-divider2 {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.25);
+            /* margin: 14px 0 14px 0; */
+        }
+
+        /* Thank You + Signature */
+        .foot-thanks-table {
+            width: 100%;
+            margin-top: 0;
+            border-collapse: collapse;
+        }
+
+        .foot-thanks-table td:first-child {
+            padding-left: 30px;
+        }
+
+        .thanks-cell {
+            vertical-align: middle;
+        }
+
+        .thanks-main {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .thanks-sub {
+            font-size: 9px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-top: 2px;
+        }
+
+        .sign-cell {
+            text-align: right;
+            padding-right: 15px;
+            vertical-align: middle;
+            width: 90px;
+        }
+
+        .sign-img {
+            height: 28px;
+            display: block;
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+        .auth-label {
+            font-size: 8px;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ══ CONTENT AREA ══ -->
+    <div class="invoice-main">
+
+        <!-- Header: Logo left | INVOICE right -->
+        <table class="header-table">
+            <tr>
+                <td class="logo-cell">
+                    <img src="{{LOGO_SRC}}" alt="ModuleWings" class="logo-img">
+                </td>
+                <td class="invoice-title-cell">INVOICE</td>
+            </tr>
+        </table>
+
+        <!-- Meta: Client info left, company address right -->
+        <table class="meta-table">
+            <tr>
+                <td class="meta-left">
+                    <div class="client-name">{{CLIENT_NAME}}</div>
+                    <table class="detail-table">
+                        <tr>
+                            <td class="detail-label">Invoice Date:&nbsp</td>
+                            <td class="detail-value">{{INVOICE_DATE}}</td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Invoice No.: &nbsp</td>
+                            <td class="detail-value">{{INVOICE_CODE}}</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="meta-right">
+                    New Delhi Delhi 110094<br>
+                    India<br>
+                    +91 8447924973<br>
+                    billing@modulewings.com<br>
+                    <a style="text-decoration: none; color: #1b2130;"
+                        href="https://modulewings.com">www.modulewings.com</a>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Subject -->
+        <div class="subject-block">
+            <div class="subject-label">Subject:</div>
+            <div class="subject-text">{{SUBJECT}}</div>
+        </div>
+
+        <!-- Items -->
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th class="col-hash">
+                        <p style="text-align: center;">#</p>
+                    </th>
+                    <th class="col-desc">
+                        <p>Description</p>
+                    </th>
+                    <th class="col-qty center">Qty</th>
+                    <th class="col-rate center">Rate</th>
+                    <th class="col-amt center">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ITEMS_BODY}}
+            </tbody>
+        </table>
+
+        <!-- Totals (line above first row via CSS) -->
+        <table class="totals-table">
+            <tr>
+                <td class="lbl">Sub Total</td>
+                <td class="val">{{SUBTOTAL}}</td>
+            </tr>
+            {{ADVANCE_ROW}}
+            {{DISCOUNT_ROW}}
+            <tr class="total-row">
+                <td class="lbl">Total</td>
+                <td class="val">{{TOTAL}}</td>
+            </tr>
+        </table>
+
+    </div><!-- /.invoice-main -->
+
+    <!-- ══ BLUE FOOTER ══ -->
+    <div class="footer">
+        <!-- Column labels -->
+        <table class="foot-labels-table">
+            <tr>
+                <td style="width:38%;">Bank Information</td>
+                <td class="left">Due By</td>
+                <td class="right">Total Due</td>
+            </tr>
+        </table>
+        <hr class="foot-divider">
+        <!-- Values row -->
+        <table class="foot-values-table">
+            <tr>
+                <td style="width:38%;">
+                    <div class="bank-line">Account Number: <span class="bank-value">2150132266</span></div>
+                    <div class="bank-line">IFSC Code:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                            class="bank-value">KKBK0004608</span></div>
+                </td>
+                <td class="left">
+                    <div class="due-date-text">{{DUE_DATE}}</div>
+                </td>
+                <td class="right">
+                    <div class="total-due-text">{{TOTAL_DUE}}</div>
+                </td>
+            </tr>
+        </table>
+        <hr class="foot-divider2">
+        <!-- Thank You + Signature -->
+        <table class="foot-thanks-table">
+            <tr>
+                <td class="thanks-cell">
+                    <div class="thanks-main">Thank You!</div>
+                    <div class="thanks-sub">for trusting our services. Looking forward to working again.</div>
+                </td>
+                <td class="sign-cell">
+                    <img src="{{SIGN_SRC}}" alt="Signature" class="sign-img">
+                    <div class="auth-label">Authorised By</div>
+                </td>
+            </tr>
+        </table>
+
+    </div><!-- /.footer -->
+
+</body>
+
+</html>

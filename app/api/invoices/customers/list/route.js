@@ -2,10 +2,9 @@ import {query} from "@/lib/db";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
-    // await authenticate(req);
     try {
-        const invoices = await query("SELECT id,invoice_date,due_date,invoice_code,order_code,bill_to_name,status,total_amount,advance_received FROM invoices");
-        return NextResponse.json(invoices);
+        const users = await query("SELECT id,first_name,last_name,salutation,email FROM users");
+        return NextResponse.json({users});
     } catch (err) {
         console.error(err);
         return NextResponse.json({ error: "Server error" }, { status: 500 });

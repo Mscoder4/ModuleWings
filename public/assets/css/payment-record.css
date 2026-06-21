@@ -1,0 +1,238 @@
+/* payment-record.css */
+
+body {
+    overflow-y: auto !important;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 295px; /* Stay right of the global sidebar */
+    right: 0;
+    height: 170px;
+    background: linear-gradient(
+        to bottom,
+        #e9edf6 0%,
+        #e9edf6 50%,
+        transparent 100%
+    );
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.split-list {
+    position: fixed !important;
+    top: 40px !important;
+    left: 295px !important;
+    margin-top: 0 !important;
+    height: calc(100vh - 60px) !important;
+    z-index: 1001; /* Stay above the fade */
+}
+
+.split-view-container {
+    height: auto !important;
+    min-height: calc(100vh - 80px);
+}
+
+.payment-form-section {
+    flex: 1;
+    margin-left: 294px; /* Reserve space for the fixed list (270px + 24px gap) */
+    margin-top: 108px; /* 68px down from where the invoice preview starts (which is at 40px) */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 80px;
+}
+
+.payment-form-card {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid #ffffff;
+    border-radius: 30px;
+    padding: 35px 40px;
+    width: 600px;
+    height: 703px;
+    box-sizing: border-box;
+}
+
+.payment-form-card h2 {
+    font-family: 'Manrope-Bold', sans-serif;
+    font-size: 35px;
+    margin-top: 0;
+    margin-bottom: 40px;
+    color: #111;
+    line-height: 1;
+}
+
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.form-group-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+}
+
+.form-group.align-top {
+    align-items: flex-start;
+}
+
+.form-group label {
+    font-family: 'Satoshi-Medium', sans-serif;
+    font-size: 15px;
+    color: #111;
+    width: 180px;
+    flex-shrink: 0;
+}
+
+.form-group.align-top label {
+    padding-top: 12px;
+}
+
+.form-group label.required-label {
+    color: #FF1212;
+}
+
+.form-group label span {
+    color: #FF1212;
+}
+
+.form-control {
+    flex: none;
+    width: 350px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: 'Satoshi-Regular', sans-serif;
+    font-size: 13px;
+    color: #111;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.form-control::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.form-control[readonly] {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+select.form-control {
+    appearance: none;
+    background-image: url('/assets/icons/dropdown.svg');
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 12px;
+}
+
+textarea.form-control {
+    resize: none;
+    height: 100px;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-top: 23px;
+    margin-bottom: 30px;
+    margin-left: 30px;
+    font-family: 'Satoshi-Medium', sans-serif;
+    font-size: 15px;
+    color: #111;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #000000;
+    border-radius: 3px;
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"]:checked {
+    background-color: #1231ff;
+    border-color: #1231ff;
+    position: relative;
+}
+
+.checkbox-group input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 3px;
+    height: 7px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-left: 30px;
+}
+
+.btn {
+    height: 38px;
+    border-radius: 10px;
+    font-family: 'Satoshi-Medium', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.btn-draft {
+    width: 120px;
+    background-color: transparent;
+    border-color: #111;
+    color: #111;
+}
+
+.btn-save {
+    width: 68px;
+    background-color: #1231ff;
+    color: #ffffff;
+}
+
+.btn-cancel {
+    width: 81px;
+    background-color: transparent;
+    border-color: #111;
+    color: #111;
+}
+
+.invoice-preview-section {
+    width: 40.6%;
+    height: 100%;
+    padding-top: 124px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}

@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { getNextInvoiceSequence } from './actions';
+import { getNextInvoiceSequence } from '../create/actions';
 
-export default function InvoiceCreate() {
+export default function EditClient({ invoiceId, invoiceCode: initialInvoiceCode }) {
     // Dropdown / API Data State
     const [customers, setCustomers] = useState([]);
     const [orders, setOrders] = useState([]);
@@ -27,6 +27,7 @@ export default function InvoiceCreate() {
     const [remark, setRemark] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitMessage, setSubmitMessage] = useState("");
+    const [isLoadingData, setIsLoadingData] = useState(true);
 
     // Preview State
     const [previewHtml, setPreviewHtml] = useState("");
@@ -52,7 +53,54 @@ export default function InvoiceCreate() {
             .then(res => res.text())
             .then(text => setTemplateHtml(text))
             .catch(err => console.error("Error fetching template:", err));
-    }, []);
+
+        // Fetch existing invoice data
+        if (invoiceId) {
+            fetch(`/api/invoices/view?id=${invoiceId}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.invoice && data.invoice.length > 0) {
+                        const inv = data.invoice[0];
+                        setCustomerSearchText(inv.bill_to_name || "");
+                        setSelectedCustomer({ id: inv.user_id, display_name: inv.bill_to_name });
+                        
+                        // Fetch orders for this customer to populate the orders dropdown
+                        fetch(`/api/invoices/customers/orders?id=${inv.user_id}`)
+                            .then(r => r.json())
+                            .then(orderData => {
+                                if (orderData.orders) setOrders(orderData.orders);
+                                setSelectedOrder({ id: inv.order_id, order_code: inv.order_code });
+                            });
+                        
+                        setInvoiceCode(inv.invoice_code || "");
+                        setInvoiceDate(inv.invoice_date ? inv.invoice_date.substring(0, 10) : "");
+                        setDueDate(inv.due_date ? inv.due_date.substring(0, 10) : "");
+                        setSubject(inv.subject || "");
+                        setAdvance(inv.advance_received || "0");
+                        setDiscount(inv.discount || "0");
+                        setRemark(inv.remark || "");
+                        
+                        if (data.items && data.items.length > 0) {
+                            setRows(data.items.map((it, idx) => ({
+                                id: it.id || Date.now() + idx,
+                                desc: it.description || "",
+                                qty: it.quantity || "1",
+                                rate: it.unit_price || "0"
+                            })));
+                        } else {
+                            setRows([{ id: Date.now(), desc: '', qty: '', rate: '' }]);
+                        }
+                    }
+                    setIsLoadingData(false);
+                })
+                .catch(err => {
+                    console.error("Error fetching invoice data:", err);
+                    setIsLoadingData(false);
+                });
+        } else {
+            setIsLoadingData(false);
+        }
+    }, [invoiceId]);
 
     // Handle clicks outside of dropdowns
     useEffect(() => {
@@ -118,7 +166,7 @@ export default function InvoiceCreate() {
             console.error("Error fetching orders:", err);
         }
 
-        // Generate Invoice Code
+        // Generate Invoice Code if customer changed
         let initials = (u.initials || "").trim();
         if (!initials && u.first_name) {
             initials = (u.first_name.charAt(0) + (u.last_name ? u.last_name.charAt(0) : "X")).toUpperCase();
@@ -178,6 +226,7 @@ export default function InvoiceCreate() {
         }));
 
         const payload = {
+            invoice_id: invoiceId,
             user_id: selectedCustomer.id,
             order_id: selectedOrder.id,
             created_by_admin_id: 1, // You can replace this with actual logged in admin ID from auth context later
@@ -198,7 +247,7 @@ export default function InvoiceCreate() {
         };
 
         try {
-            const res = await fetch('/api/invoices/new', {
+            const res = await fetch('/api/invoices/edit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -321,8 +370,12 @@ export default function InvoiceCreate() {
             
             <div className="main-content">
                 <div className="creator">
-                    <p className="sal">New Invoice</p>
+                    <p className="sal">Edit Invoice</p>
                     
+                    {isLoadingData ? (
+                        <div style={{ padding: '20px', textAlign: 'center' }}>Loading invoice data...</div>
+                    ) : (
+                        <>
                     {submitMessage && (
                         <div style={{
                             padding: '15px', 
@@ -620,6 +673,8 @@ export default function InvoiceCreate() {
                             }}>Reset</button>
                         </div>
                     </form>
+                        </>
+                    )}
                 </div>
                 
                 <div className="preview" ref={previewContainerRef} style={{ paddingTop: '124px', overflow:'hidden', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>

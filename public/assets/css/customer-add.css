@@ -1,0 +1,232 @@
+@import url('/assets/css/fonts.css');
+
+
+#main-content {
+    margin-left: 295px;
+    margin-right: 40px;
+    padding-top: 130px;
+    padding-bottom: 40px;
+    font-family: 'Satoshi-Medium', sans-serif;
+    font-weight: normal;
+}
+
+.add-customer-container {
+    padding: 0;
+    font-family: 'Satoshi-Regular', sans-serif;
+    font-weight: normal;
+}
+
+.add-customer-card {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 30px;
+    border: 1px solid #fff;
+    padding: 20px 30px;
+    max-width: 800px;
+    height: 580px;
+}
+
+.add-customer-header {
+    font-size: 35px;
+    font-family: 'Satoshi-Medium', sans-serif;
+    font-weight: normal;
+    color: #000;
+    margin-bottom: 40px;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.form-label {
+    width: 260px;
+    font-size: 15px;
+    font-family: 'Satoshi-Medium', sans-serif;
+    font-weight: normal;
+    color: #000000;
+}
+
+.form-inputs {
+    font-size: 13px !important;
+    font-family: 'Satoshi-Regular';
+    font-weight: normal;
+    flex: 1;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-right: 24px;
+    color: #111;
+    font-family: 'Satoshi-Medium', sans-serif;
+    font-weight: normal;
+}
+
+.radio-group input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 3px solid #a0a0a0;
+    border-radius: 50%;
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.radio-group input[type="radio"]:checked {
+    border: 3px solid #1231ff;
+}
+
+
+.input-field,
+.select-field {
+    background: #f8f9fb;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    width: 150px;
+    padding: 10px 10px;
+    outline: none;
+    color: rgba(0, 0, 0, 0.4);
+    transition: all 0.2s ease;
+}
+
+.email {
+    width: 90%;
+}
+
+.currency {
+    width: 368px !important;
+    color: #000 !important;
+}
+
+.full {
+    width: 350px !important;
+}
+
+.language {
+    width: 368px !important;
+    color: #000 !important;
+}
+
+.input-field:focus,
+.select-field:focus {
+    background: #fff;
+}
+
+.input-field::placeholder {
+    color: #a0a0a0;
+}
+
+.select-field {
+    color: rgba(0, 0, 0, 0.4);
+    width: 150px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 10px;
+    padding-right: 40px;
+}
+
+.phone-group {
+    display: flex;
+    gap: 0;
+    width: 140px !important;
+}
+
+.ph {
+    display: flex;
+    gap: 100px;
+}
+
+.phone-group .select-field {
+    color: #000 !important;
+    width: 80px;
+    padding-left: 12px;
+    padding-right: 30px;
+    background-position: right 12px center;
+    background-color: #f0f2f5;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+}
+
+.phone-group .input-field {
+    width: 120px !important;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.email-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.email-wrapper .input-field {
+    padding-left: 40px;
+}
+
+.email-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: #888;
+}
+
+.form-actions {
+    margin-top: 80px;
+    display: flex;
+    gap: 16px;
+}
+
+.btn-save {
+    width: 68px;
+    height: 40px;
+    background: #1231ff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-family: 'Satoshi-Medium', sans-serif;
+    font-weight: normal;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-save:hover {
+    opacity: 0.9;
+}
+
+.btn-cancel {
+    width: 81px;
+    height: 40px;
+    background: transparent;
+    color: #000000;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    font-size: 13px;
+    font-family: 'Satoshi-Medium', sans-serif;
+    font-weight: normal;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-cancel:hover {
+    background: #f0f0f0;
+}

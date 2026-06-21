@@ -7,8 +7,11 @@ const nextConfig = {
                 destination: '/login',
                 permanent: true,
             },
+            
         ];
     },
+    allowedDevOrigins: ['192.168.1.42'],
+
 };
 
 export default nextConfig;
