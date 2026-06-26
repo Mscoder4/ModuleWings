@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import CustomerDetails from "./CustomerDetails";
 
 export default function CustomersPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const activeId = parseInt(searchParams.get("id")) || 0;
+    const view = searchParams.get("view") || "table";
 
     const [customers, setCustomers] = useState([]);
     const [filteredCustomers, setFilteredCustomers] = useState([]);
@@ -72,6 +74,7 @@ export default function CustomersPage() {
     return (
         <>
             <link rel="stylesheet" href="/assets/css/customers.css" />
+            {view === 'details' && <link rel="stylesheet" href="/assets/css/customer-details.css" />}
             <div className="split-view-container">
                 <div className="split-list">
                     <div className="list-header">
@@ -85,7 +88,7 @@ export default function CustomersPage() {
                                 <div
                                     key={c.id}
                                     className={`customer-card ${isActive}`}
-                                    onClick={() => router.push(`/customers?id=${c.id}`)}
+                                    onClick={() => router.push(`/customers?id=${c.id}${view === 'details' ? '&view=details' : ''}`)}
                                 >
                                     <div className="card-header">
                                         <span className="customer-name">{c.display_name}</span>
@@ -104,41 +107,45 @@ export default function CustomersPage() {
                 </div>
 
                 <div className="split-right-pane">
-                    <div className="customers-table-wrap">
-                        <table className="customers-table">
-                            <thead>
-                                <tr>
-                                    <th id="filter"><img src="/assets/icons/sort.svg" alt="" /></th>
-                                    <th id="checkbox"><input type="checkbox" id="main-checkbox" /></th>
-                                    <th id="name">NAME</th>
-                                    <th id="company">COMPANY NAME</th>
-                                    <th id="email">EMAIL</th>
-                                    <th id="phone">WORK PHONE</th>
-                                    <th id="receivables">RECEIVABLES</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {filteredCustomers.map(c => (
-                                    <tr
-                                        key={c.id}
-                                        className={`customer-row ${c.id === activeId ? 'active-row' : ''}`}
-                                        onDoubleClick={() => router.push(`/user_edit?id=${c.id}`)}
-                                    >
-                                        <td></td>
-                                        <td><input type="checkbox" className="row-checkbox" /></td>
-                                        <td>{c.display_name}</td>
-                                        <td>{c.company_name || 'Module Wings'}</td>
-                                        <td>{c.email}</td>
-                                        <td>{c.phone || '+91 87430 23159'}</td>
-                                        <td>₹{formatCurrency(c.receivables || 0)}</td>
+                    {view === 'details' && activeId ? (
+                        <CustomerDetails customerId={activeId} />
+                    ) : (
+                        <div className="customers-table-wrap">
+                            <table className="customers-table">
+                                <thead>
+                                    <tr>
+                                        <th id="filter"><img src="/assets/icons/sort.svg" alt="" /></th>
+                                        <th id="checkbox"><input type="checkbox" id="main-checkbox" /></th>
+                                        <th id="name">NAME</th>
+                                        <th id="company">COMPANY NAME</th>
+                                        <th id="email">EMAIL</th>
+                                        <th id="phone">WORK PHONE</th>
+                                        <th id="receivables">RECEIVABLES</th>
                                     </tr>
-                                ))}
-                                {filteredCustomers.length === 0 && !loading && (
-                                    <tr><td colSpan="7" style={{ textAlign: 'center' }}>No customers found.</td></tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                    {filteredCustomers.map(c => (
+                                        <tr
+                                            key={c.id}
+                                            className={`customer-row ${c.id === activeId ? 'active-row' : ''}`}
+                                            onDoubleClick={() => router.push(`/customers?id=${c.id}&view=details`)}
+                                        >
+                                            <td></td>
+                                            <td><input type="checkbox" className="row-checkbox" /></td>
+                                            <td>{c.display_name}</td>
+                                            <td>{c.company_name || 'Module Wings'}</td>
+                                            <td>{c.email}</td>
+                                            <td>{c.phone || '+91 87430 23159'}</td>
+                                            <td>₹{formatCurrency(c.receivables || 0)}</td>
+                                        </tr>
+                                    ))}
+                                    {filteredCustomers.length === 0 && !loading && (
+                                        <tr><td colSpan="7" style={{ textAlign: 'center' }}>No customers found.</td></tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
                 </div>
             </div>
         </>

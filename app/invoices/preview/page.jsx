@@ -5,7 +5,7 @@ export default function InvoicePreview() {
             html, body { margin: 0; padding: 0; overflow: hidden; }
             * { box-sizing: border-box; }
         `}} />
-        <div style={{ fontFamily: "'Satoshi-regular', 'DejaVu Sans', sans-serif", fontSize: '11px', lineHeight: 1.5, color: '#1b2130', backgroundColor: '#E9EDF6', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ fontFamily: "'Satoshi-regular', 'DejaVu Sans', sans-serif", fontSize: '11px', lineHeight: 1.5, color: '#000000', backgroundColor: '#E9EDF6', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <div style={{ flex: 1, padding: '82px 82px 24px 82px', background: '#E9EDF6', overflow: 'hidden' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '60px' }}>
                     <tbody>
@@ -13,7 +13,7 @@ export default function InvoicePreview() {
                             <td style={{ verticalAlign: 'middle', textAlign: 'left' }}>
                                 <img src="/assets/images/invoice_logo.svg" alt="ModuleWings" style={{ height: '44px', width: 'auto', display: 'block' }} />
                             </td>
-                            <td style={{ textAlign: 'right', verticalAlign: 'middle', fontSize: '40.03px', fontWeight: 600, color: '#1b2130', whiteSpace: 'nowrap', fontFamily: "'Manrope-semibold', sans-serif" }}>
+                            <td style={{ textAlign: 'right', verticalAlign: 'middle', fontSize: '40.03px', fontWeight: 600, color: '#000000', whiteSpace: 'nowrap', fontFamily: "'Manrope-semibold', sans-serif" }}>
                                 INVOICE
                             </td>
                         </tr>
@@ -24,53 +24,53 @@ export default function InvoicePreview() {
                     <tbody>
                         <tr>
                             <td style={{ width: '55%', verticalAlign: 'top' }}>
-                                <div style={{ fontFamily: "'Satoshi-medium', sans-serif", fontSize: '20.02px', color: '#1b2130', marginBottom: '14px' }}>Client Name</div>
+                                <div style={{ fontFamily: "'Satoshi-medium', sans-serif", fontSize: '20.02px', color: '#000000', marginBottom: '14px' }}>Client Name</div>
                                 <table style={{ fontSize: '13px', marginTop: '30px', borderCollapse: 'collapse' }}>
                                     <tbody>
                                         <tr>
-                                            <td style={{ fontWeight: 400, color: '#505568', whiteSpace: 'nowrap', width: '70px' }}>Invoice Date:&nbsp;</td>
-                                            <td style={{ fontFamily: "'Satoshi-bold', sans-serif", color: '#1b2130' }}>01 Jan 2026</td>
+                                            <td style={{ fontWeight: 400, color: '#000000', whiteSpace: 'nowrap', width: '70px' }}>Invoice Date:&nbsp;</td>
+                                            <td style={{ fontFamily: "'Satoshi-bold', sans-serif", color: '#000000' }}>01 Jan 2026</td>
                                         </tr>
                                         <tr>
-                                            <td style={{ fontWeight: 400, color: '#505568', whiteSpace: 'nowrap', width: '70px' }}>Invoice No.: &nbsp;</td>
-                                            <td style={{ fontFamily: "'Satoshi-bold', sans-serif", color: '#1b2130' }}>AB001</td>
+                                            <td style={{ fontWeight: 400, color: '#000000', whiteSpace: 'nowrap', width: '70px' }}>Invoice No.: &nbsp;</td>
+                                            <td style={{ fontFamily: "'Satoshi-bold', sans-serif", color: '#000000' }}>AB001</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </td>
-                            <td style={{ width: '45%', verticalAlign: 'top', textAlign: 'right', fontSize: '13.34px', lineHeight: 1.4, fontWeight: 300, color: '#1b2130' }}>
+                            <td style={{ width: '45%', verticalAlign: 'top', textAlign: 'right', fontSize: '13.34px', lineHeight: 1.4, fontWeight: 300, color: '#000000' }}>
                                 New Delhi Delhi 110094<br />
                                 India<br />
                                 +91 8447924973<br />
                                 billing@modulewings.com<br />
-                                <a style={{ textDecoration: 'none', color: '#1b2130' }} href="https://modulewings.com">www.modulewings.com</a>
+                                <a style={{ textDecoration: 'none', color: '#000000' }} href="https://modulewings.com">www.modulewings.com</a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
 
                 <div style={{ marginTop: '70px', marginBottom: '28px', marginLeft: '30px' }}>
-                    <div style={{ fontSize: '10.68px', fontFamily: "'Satoshi-medium', sans-serif", color: '#1b2130', marginBottom: '2px' }}>Subject:</div>
-                    <div style={{ fontSize: '10.68px', fontFamily: "'Satoshi-medium', sans-serif", color: '#1b2130' }}>Invoice for Services</div>
+                    <div style={{ fontSize: '10.68px', fontFamily: "'Satoshi-medium', sans-serif", color: '#000000', marginBottom: '2px' }}>Subject:</div>
+                    <div style={{ fontSize: '10.68px', fontFamily: "'Satoshi-medium', sans-serif", color: '#000000' }}>Invoice for Services</div>
                 </div>
 
                 <table style={{ fontSize: '10.68px', width: '100%', borderCollapse: 'collapse', marginBottom: 0 }}>
                     <thead>
                         <tr>
-                            <th style={{ fontWeight: 400, fontFamily: "'Satoshi-regular', sans-serif", color: '#1b2130', textAlign: 'left', padding: '10px 0', borderBottom: '1px solid #c8ccd9', width: '70px', textAlign: 'center' }}>#</th>
-                            <th style={{ fontWeight: 400, fontFamily: "'Satoshi-regular', sans-serif", color: '#1b2130', textAlign: 'left', padding: '10px 0', borderBottom: '1px solid #c8ccd9' }}>Description</th>
-                            <th style={{ fontWeight: 400, fontFamily: "'Satoshi-regular', sans-serif", color: '#1b2130', padding: '10px 0', borderBottom: '1px solid #c8ccd9', textAlign: 'right', paddingRight: '15px', width: '70px' }}>Qty</th>
-                            <th style={{ fontWeight: 400, fontFamily: "'Satoshi-regular', sans-serif", color: '#1b2130', padding: '10px 0', borderBottom: '1px solid #c8ccd9', textAlign: 'right', paddingRight: '15px', width: '90px' }}>Rate</th>
-                            <th style={{ fontWeight: 400, fontFamily: "'Satoshi-regular', sans-serif", color: '#1b2130', padding: '10px 0', borderBottom: '1px solid #c8ccd9', textAlign: 'right', paddingRight: '15px', width: '90px' }}>Amount</th>
+                            <th style={{ fontWeight: 400, fontFamily: "'Satoshi-regular', sans-serif", color: '#000000', textAlign: 'left', padding: '10px 0', borderBottom: '1px solid #c8ccd9', width: '70px', textAlign: 'center' }}>#</th>
+                            <th style={{ fontWeight: 400, fontFamily: "'Satoshi-regular', sans-serif", color: '#000000', textAlign: 'left', padding: '10px 0', borderBottom: '1px solid #c8ccd9' }}>Description</th>
+                            <th style={{ fontWeight: 400, fontFamily: "'Satoshi-regular', sans-serif", color: '#000000', padding: '10px 0', borderBottom: '1px solid #c8ccd9', textAlign: 'right', paddingRight: '15px', width: '70px' }}>Qty</th>
+                            <th style={{ fontWeight: 400, fontFamily: "'Satoshi-regular', sans-serif", color: '#000000', padding: '10px 0', borderBottom: '1px solid #c8ccd9', textAlign: 'right', paddingRight: '15px', width: '90px' }}>Rate</th>
+                            <th style={{ fontWeight: 400, fontFamily: "'Satoshi-regular', sans-serif", color: '#000000', padding: '10px 0', borderBottom: '1px solid #c8ccd9', textAlign: 'right', paddingRight: '15px', width: '90px' }}>Amount</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td style={{ fontFamily: "'Satoshi-medium', sans-serif", color: '#1b2130', padding: '30px 0 13px 0', verticalAlign: 'top', borderBottom: '1px solid #eaedf4', textAlign: 'center' }}>1</td>
-                            <td style={{ fontFamily: "'Satoshi-medium', sans-serif", color: '#1b2130', padding: '30px 0 13px 0', verticalAlign: 'top', borderBottom: '1px solid #eaedf4' }}>Title - 1</td>
-                            <td style={{ fontFamily: "'Satoshi-medium', sans-serif", color: '#1b2130', padding: '30px 15px 13px 0', verticalAlign: 'top', borderBottom: '1px solid #eaedf4', textAlign: 'right' }}>1</td>
-                            <td style={{ fontFamily: "'Satoshi-medium', sans-serif", color: '#1b2130', padding: '30px 15px 13px 0', verticalAlign: 'top', borderBottom: '1px solid #eaedf4', textAlign: 'right' }}>1,000.00</td>
-                            <td style={{ fontFamily: "'Satoshi-medium', sans-serif", color: '#1b2130', padding: '30px 15px 13px 0', verticalAlign: 'top', borderBottom: '1px solid #eaedf4', textAlign: 'right' }}>1,000.00</td>
+                            <td style={{ fontFamily: "'Satoshi-medium', sans-serif", color: '#000000', padding: '30px 0 13px 0', verticalAlign: 'top', borderBottom: '1px solid #eaedf4', textAlign: 'center' }}>1</td>
+                            <td style={{ fontFamily: "'Satoshi-medium', sans-serif", color: '#000000', padding: '30px 0 13px 0', verticalAlign: 'top', borderBottom: '1px solid #eaedf4' }}>Title - 1</td>
+                            <td style={{ fontFamily: "'Satoshi-medium', sans-serif", color: '#000000', padding: '30px 15px 13px 0', verticalAlign: 'top', borderBottom: '1px solid #eaedf4', textAlign: 'right' }}>1</td>
+                            <td style={{ fontFamily: "'Satoshi-medium', sans-serif", color: '#000000', padding: '30px 15px 13px 0', verticalAlign: 'top', borderBottom: '1px solid #eaedf4', textAlign: 'right' }}>1,000.00</td>
+                            <td style={{ fontFamily: "'Satoshi-medium', sans-serif", color: '#000000', padding: '30px 15px 13px 0', verticalAlign: 'top', borderBottom: '1px solid #eaedf4', textAlign: 'right' }}>1,000.00</td>
                         </tr>
                     </tbody>
                 </table>
@@ -78,12 +78,12 @@ export default function InvoicePreview() {
                 <table style={{ fontFamily: "'Satoshi-medium', sans-serif", width: '100%', borderCollapse: 'collapse', marginTop: '10px', marginLeft: 'auto', backgroundColor: 'rgba(18, 49, 255, 0.05)', borderRadius: '10px' }}>
                     <tbody>
                         <tr>
-                            <td style={{ textAlign: 'right', paddingRight: '15px', color: '#1b2130', fontFamily: "'Satoshi-medium', sans-serif", borderTop: 'none', paddingTop: '10px' }}>Sub Total</td>
-                            <td style={{ textAlign: 'right', paddingRight: '15px', width: '90px', color: '#1b2130', borderTop: 'none', paddingTop: '10px' }}>1,000.00</td>
+                            <td style={{ textAlign: 'right', paddingRight: '15px', color: '#000000', fontFamily: "'Satoshi-medium', sans-serif", borderTop: 'none', paddingTop: '10px' }}>Sub Total</td>
+                            <td style={{ textAlign: 'right', paddingRight: '15px', width: '90px', color: '#000000', borderTop: 'none', paddingTop: '10px' }}>1,000.00</td>
                         </tr>
                         <tr>
-                            <td style={{ textAlign: 'right', paddingRight: '15px', color: '#1b2130', fontFamily: "'Satoshi-bold', sans-serif", paddingTop: '7px', paddingBottom: '10px', fontSize: '10.68px' }}>Total</td>
-                            <td style={{ textAlign: 'right', paddingRight: '15px', width: '90px', color: '#1b2130', fontFamily: "'Satoshi-bold', sans-serif", paddingTop: '7px', paddingBottom: '10px', fontSize: '10.68px' }}>1,000.00</td>
+                            <td style={{ textAlign: 'right', paddingRight: '15px', color: '#000000', fontFamily: "'Satoshi-bold', sans-serif", paddingTop: '7px', paddingBottom: '10px', fontSize: '10.68px' }}>Total</td>
+                            <td style={{ textAlign: 'right', paddingRight: '15px', width: '90px', color: '#000000', fontFamily: "'Satoshi-bold', sans-serif", paddingTop: '7px', paddingBottom: '10px', fontSize: '10.68px' }}>1,000.00</td>
                         </tr>
                     </tbody>
                 </table>
