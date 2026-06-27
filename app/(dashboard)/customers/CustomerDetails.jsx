@@ -5,26 +5,42 @@ import { useEffect, useState } from "react";
 export default function CustomerDetails({ customerId }) {
     const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [activeTab, setActiveTab] = useState('overview');
+    const [invoices, setInvoices] = useState([]);
+
+    const staticMails = [
+        { id: 1, to: "abc@gmail.com", subject: "Invoice Notification - Invoice - NR0001 from Module Wings", date: "01-02-2026 08:44 PM" },
+        { id: 2, to: "abc@gmail.com", subject: "Payment Acknowledgment - Thank You for Your Payment to Module Wings", date: "01-02-2026 08:44 PM" },
+        { id: 3, to: "abc@gmail.com", subject: "Invoice Notification - Invoice - NR0001 from Module Wings", date: "01-02-2026 08:44 PM" },
+        { id: 4, to: "abc@gmail.com", subject: "Payment Acknowledgment - Thank You for Your Payment to Module Wings", date: "01-02-2026 08:44 PM" },
+        { id: 5, to: "abc@gmail.com", subject: "Invoice Notification - Invoice - NR0002 from Module Wings", date: "01-02-2026 08:44 PM" },
+    ];
 
     useEffect(() => {
         if (!customerId) return;
         
-        const fetchStats = async () => {
+        const fetchData = async () => {
             setLoading(true);
             try {
-                const res = await fetch(`/api/customers/${customerId}/stats`);
-                if (res.ok) {
-                    const data = await res.json();
-                    setStats(data);
+                const [statsRes, invoicesRes] = await Promise.all([
+                    fetch(`/api/customers/${customerId}/stats`),
+                    fetch(`/api/customers/${customerId}/invoices`)
+                ]);
+                
+                if (statsRes.ok) {
+                    setStats(await statsRes.json());
+                }
+                if (invoicesRes.ok) {
+                    setInvoices(await invoicesRes.json());
                 }
             } catch (err) {
-                console.error("Error fetching stats:", err);
+                console.error("Error fetching data:", err);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchStats();
+        fetchData();
     }, [customerId]);
 
     if (!customerId) {
@@ -93,49 +109,131 @@ export default function CustomerDetails({ customerId }) {
                 {/* Left Card: Overview */}
                 <div className="overview-card">
                     <div className="tabs-header">
-                        <button className="tab-btn active">Overview</button>
-                        <button className="tab-btn">Transactions</button>
-                        <button className="tab-btn">Mails</button>
+                        <button 
+                            className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('overview')}
+                        >Overview</button>
+                        <button 
+                            className={`tab-btn ${activeTab === 'transactions' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('transactions')}
+                        >Transactions</button>
+                        <button 
+                            className={`tab-btn ${activeTab === 'mails' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('mails')}
+                        >Mails</button>
+                        
+                        <div className="tab-underline" style={{
+                            width: activeTab === 'overview' ? '63px' : activeTab === 'transactions' ? '90px' : '36px',
+                            transform: `translateX(${activeTab === 'overview' ? '4px' : activeTab === 'transactions' ? '130px' : '282px'})`
+                        }}></div>
                     </div>
 
-                    <div className="details-inner-container">
-                        <div className="details-top-part">
-                            <div className="avatar-circle">{initials}</div>
-                            <div className="profile-info">
-                                <div className="profile-name">{customer.display_name}</div>
-                                <div className="profile-email">{customer.email}</div>
-                                <div className="profile-phone">{customer.phone || 'No phone provided'}</div>
-                            </div>
-                            <div className="edit-btn top-edit-btn">Edit</div>
-                        </div>
+                    <div className="tab-slider-wrapper">
+                        <div className="tab-slider-content" style={{ transform: `translateX(${activeTab === 'overview' ? '0' : activeTab === 'transactions' ? '-380px' : '-760px'})` }}>
+                            
+                            {/* Overview Tab */}
+                            <div className="tab-pane">
+                                <div className="details-inner-container">
+                                    <div className="details-top-part">
+                                        <div className="avatar-circle">{initials}</div>
+                                        <div className="profile-info">
+                                            <div className="profile-name">{customer.display_name}</div>
+                                            <div className="profile-email">{customer.email}</div>
+                                            <div className="profile-phone">{customer.phone || 'No phone provided'}</div>
+                                        </div>
+                                        <div className="edit-btn top-edit-btn">Edit</div>
+                                    </div>
 
-                        <div className="details-bottom-part">
-                            <div className="details-bottom-top">
-                                <span className="section-title">OTHER DETAILS</span>
+                                    <div className="details-bottom-part">
+                                        <div className="details-bottom-top">
+                                            <span className="section-title">OTHER DETAILS</span>
+                                        </div>
+                                        <div className="details-bottom-bottom">
+                                            <div className="detail-row">
+                                                <div className="detail-label">Customer Type</div>
+                                                <div className="detail-value">Individual</div>
+                                                <div className="edit-btn">Edit</div>
+                                            </div>
+                                            <div className="detail-row">
+                                                <div className="detail-label">Default Currency</div>
+                                                <div className="detail-value">INR</div>
+                                            </div>
+                                            <div className="detail-row">
+                                                <div className="detail-label">Country</div>
+                                                <div className="detail-value">INDIA</div>
+                                            </div>
+                                            <div className="detail-row">
+                                                <div className="detail-label">Language</div>
+                                                <div className="detail-value">English</div>
+                                            </div>
+                                            <div className="detail-row">
+                                                <div className="detail-label">Company Name</div>
+                                                <div className="detail-value">{customer.company_name || 'if any*'}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="details-bottom-bottom">
-                                <div className="detail-row">
-                                    <div className="detail-label">Customer Type</div>
-                                    <div className="detail-value">Individual</div>
-                                    <div className="edit-btn">Edit</div>
-                                </div>
-                                <div className="detail-row">
-                                    <div className="detail-label">Default Currency</div>
-                                    <div className="detail-value">INR</div>
-                                </div>
-                                <div className="detail-row">
-                                    <div className="detail-label">Country</div>
-                                    <div className="detail-value">INDIA</div>
-                                </div>
-                                <div className="detail-row">
-                                    <div className="detail-label">Language</div>
-                                    <div className="detail-value">English</div>
-                                </div>
-                                <div className="detail-row">
-                                    <div className="detail-label">Company Name</div>
-                                    <div className="detail-value">{customer.company_name || 'if any*'}</div>
+
+                            {/* Transactions Tab */}
+                            <div className="tab-pane transactions-pane">
+                                {invoices.length > 0 ? (
+                                    <>
+                                        <div className="transactions-header">
+                                            <button className="add-transaction-btn">
+                                                <img src="/assets/icons/add-whitebg.svg" alt="add" width="10" height="10" />
+                                                Add
+                                            </button>
+                                        </div>
+                                        <div className="transactions-list">
+                                            {invoices.map(inv => {
+                                                const rawStatus = (inv.status || 'draft').toLowerCase();
+                                                return (
+                                                    <div key={inv.id} className="t-card">
+                                                        <div className="t-top">
+                                                            <div className="t-inv-no">{inv.invoice_code || 'AB0001'}</div>
+                                                            <div className="t-amount">₹{inv.total_amount || '0.00'}</div>
+                                                        </div>
+                                                        <div className="t-date">
+                                                            {new Date(inv.invoice_date).toLocaleDateString('en-GB').replace(/\//g, '-')} • {inv.order_code || 'AB001'}
+                                                        </div>
+                                                        <div className="t-bot">
+                                                            <div className={`t-status ${rawStatus}`}>
+                                                                {inv.status ? inv.status.charAt(0).toUpperCase() + inv.status.slice(1) : 'Draft'}
+                                                                <img src={rawStatus === 'draft' ? "/assets/icons/mail-grey.svg" : "/assets/icons/mail.svg"} alt="mail" />
+                                                            </div>
+                                                            <div className="t-attach">
+                                                                <img src="/assets/icons/paperclip.svg" alt="attach" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </>
+                                ) : (
+                                    <div className="empty-transactions">
+                                        <button className="add-transaction-btn-big">
+                                            <img src="/assets/icons/add-whitebg.svg" alt="add" width="14" height="14" />
+                                            Add Transaction
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Mails Tab */}
+                            <div className="tab-pane mails-pane">
+                                <div className="mails-list">
+                                    {staticMails.map(mail => (
+                                        <div key={mail.id} className="m-card">
+                                            <div className="m-to">To {mail.to}</div>
+                                            <div className="m-subject">{mail.subject}</div>
+                                            <div className="m-date">{mail.date}</div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
